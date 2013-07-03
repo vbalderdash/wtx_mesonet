@@ -44,6 +44,10 @@ def sfc_plot(starttime, endtime, variables, variablest, locations,
                    met.ix[time_selection]['Lat'], 
                    met.ix[time_selection]['u'].values, 
                    met.ix[time_selection]['v'].values)
+        maps.drawparallels(np.arange(31.,36,1.), color='0.5',
+            labels=[1,0,0,0], fontsize=10)
+        maps.drawmeridians(np.arange(-104.,-98.,1.), color='0.5',
+            labels=[0,0,0,1], fontsize=10)
         plt.title(variablest[1]) 
         filename = '%s_%s.png' % (variables, 
                                   time_selection.strftime('%Y%m%d_%H%M'))
