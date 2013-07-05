@@ -6,6 +6,11 @@ plotting.
 Current West Texas Mesonet data and more information can be found at 
 www.mesonet.ttu.edu
 
+## Data
+The mesonet_sftp.py script can be used to get the raw data for a month from the 
+West Texas Mesonet site after entering your username and password into the script
+along with the month of interest. 
+
 ## Meteograms
 The meso_meteogram.py script plots a single day and station's meteogram 
 including soil temperature and moisture (if soil measurements were taken)
