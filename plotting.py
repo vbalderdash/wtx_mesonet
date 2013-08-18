@@ -39,11 +39,11 @@ def sfc_plot(starttime, endtime, variables, variablest, locations,
         c = plt.colorbar()  
         c.set_label(variablest[0])  
         maps.scatter(met.ix[time_selection]['Lon'], 
-                     met.ix[time_selection]['Lat'], marker='o', c='b', s=5)
+                     met.ix[time_selection]['Lat'], latlon=True, marker='o', c='b', s=5)
         maps.barbs(met.ix[time_selection]['Lon'], 
                    met.ix[time_selection]['Lat'], 
-                   met.ix[time_selection]['u'].values, 
-                   met.ix[time_selection]['v'].values)
+                   met.ix[time_selection]['u'].values*1.94384, 
+                   met.ix[time_selection]['v'].values*1.94384, latlon=True)
         maps.drawparallels(np.arange(31.,36,1.), color='0.5',
             labels=[1,0,0,0], fontsize=10)
         maps.drawmeridians(np.arange(-104.,-98.,1.), color='0.5',
