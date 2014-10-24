@@ -14,7 +14,7 @@ def sfc_plot(starttime, endtime, variables, variablest, locations,
     interval = int((endtime - starttime).total_seconds()/300)
     z_max = np.max(met[variablest[1]])                                                                  
     z_min = np.min(met[variablest[1]])                                                                  
-    levels = np.arange(z_min, z_max+0.1, 0.1)
+    levels = np.arange(z_min, z_max+1, 1)
     shapefile = 'UScounties/UScounties'
     if not os.path.exists('%s' %(variables)):
         os.makedirs('%s' %(variables))
@@ -23,14 +23,21 @@ def sfc_plot(starttime, endtime, variables, variablest, locations,
         zi = interpolate.griddata((met.ix[time_selection]['Lon'], 
                                    met.ix[time_selection]['Lat']), 
                                    met.ix[time_selection][variablest[1]],
-                                   (xi, yi), method='linear')
+                                   (xi, yi), method='cubic')
         maps = Basemap(llcrnrlon=xmin, llcrnrlat=ymin, 
                        urcrnrlon=xmax, urcrnrlat=ymax, projection='cyl')
         maps.readshapefile(shapefile, name='counties')
+        # mzi = np.ma.masked_array(zi,np.isnan(zi))
+        # levels = np.arange(np.min(mzi), np.max(mzi)+1., 1)
         if (variables == 'dew_point'):
-            maps.contourf(xi, yi, zi, levels, cmap=plt.cm.gist_earth_r)
-        if (variables == 'temperature'):
-            maps.contourf(xi, yi, zi, levels, cmap=plt.cm.jet)
+            maps.contourf(xi, yi, zi, np.arange(0.,21, 1), cmap=plt.cm.gist_earth_r)
+            # maps.contourf(xi, yi, zi, levels, cmap=plt.cm.gist_earth_r)
+        if (variables == 'relative_humidity'):
+            maps.contourf(xi, yi, zi, np.arange(15.,51., 1.), cmap=plt.cm.gist_earth_r)
+            # maps.contourf(xi, yi, zi, levels, cmap=plt.cm.gist_earth_r)
+        if ((variables == 'temperature') or (variables== 'theta_e')):
+            maps.contourf(xi, yi, zi, np.arange(24,40.5,0.5), cmap=plt.cm.jet)
+            # maps.contourf(xi, yi, zi, levels, cmap=plt.cm.jet)
         if variables == 'rainfall':
             maps.contourf(xi, yi, zi, levels, cmap=plt.cm.YlGn)
         if ((variables == 'pressure') or (variables == 'wind_speed') or 

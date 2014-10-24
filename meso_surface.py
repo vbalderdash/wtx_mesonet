@@ -17,15 +17,17 @@ variables = {'temperature' : ('Degrees Celsius', '2 m Temperature'),
              'wind_speed': ('Meters per second', '10 m Scalar Wind Speed'),
              'gust_speed': ('Meters per second', '10 m Gust Wind Speed'),
              'rainfall': ('Inches', 'Rainfall'),
+             'theta_e': ('Kelvin', 'Theta_e'),
+             'relative_humidity': ('%', '1.5 m Relative Humidity')
              }
 
 # to_plot = 'temperature'
 to_plot = np.array(['temperature', 'pressure', 'dew_point', 'wind_speed', 
-                    'gust_speed', 'rainfall'])
+                    'gust_speed', 'rainfall', 'theta_e', 'relative_humidity'])
 
 # Note that the start time should be divisble by 5 minutes
-starttime = dt.datetime(2012, 6, 15, 1, 0) 
-endtime   = dt.datetime(2012, 6, 15, 2, 0) 
+starttime = dt.datetime(2012, 6, 4, 15, 0) 
+endtime   = dt.datetime(2012, 6, 5, 10, 0) 
 
 filename = 'locations.txt'
 locations = pd.read_csv(filename, sep='	')
@@ -38,22 +40,32 @@ for file in dir:
             mesonet_calculations.meso_operations('raw_data/%s' %(file), 
             starttime,endtime,locations)], axis=0)
 
-xmin = np.min(met['Lon'])
-xmax = np.max(met['Lon'])
-ymin = np.min(met['Lat'])
-ymax = np.max(met['Lat'])
+# xmin = np.min(met['Lon'])
+# xmax = np.max(met['Lon'])
+# ymin = np.min(met['Lat'])
+# ymax = np.max(met['Lat'])
+
+xmin = -103.3
+xmax = -100.9
+ymin = 33.0
+ymax = 34.8
+
 xi, yi = np.meshgrid(np.linspace(xmin, xmax, 200), 
                      np.linspace(ymin, ymax, 200))
 
 sfc_plot(starttime, endtime, to_plot[0], variables[to_plot[0]], 
     locations, met, xi, yi, xmin, xmax, ymin, ymax)
-sfc_plot(starttime, endtime, to_plot[1], variables[to_plot[1]], 
-    locations, met, xi, yi, xmin, xmax, ymin, ymax)
-sfc_plot(starttime, endtime, to_plot[2], variables[to_plot[2]], 
-    locations, met, xi, yi, xmin, xmax, ymin, ymax)
-sfc_plot(starttime, endtime, to_plot[3], variables[to_plot[3]], 
-    locations, met, xi, yi, xmin, xmax, ymin, ymax)
-sfc_plot(starttime, endtime, to_plot[4], variables[to_plot[4]], 
-    locations, met, xi, yi, xmin, xmax, ymin, ymax)
-sfc_plot(starttime, endtime, to_plot[5], variables[to_plot[5]], 
-    locations, met, xi, yi, xmin, xmax, ymin, ymax)
+# sfc_plot(starttime, endtime, to_plot[1], variables[to_plot[1]], 
+#     locations, met, xi, yi, xmin, xmax, ymin, ymax)
+# sfc_plot(starttime, endtime, to_plot[2], variables[to_plot[2]], 
+#     locations, met, xi, yi, xmin, xmax, ymin, ymax)
+# # sfc_plot(starttime, endtime, to_plot[3], variables[to_plot[3]], 
+# #     locations, met, xi, yi, xmin, xmax, ymin, ymax)
+# # sfc_plot(starttime, endtime, to_plot[4], variables[to_plot[4]], 
+# #     locations, met, xi, yi, xmin, xmax, ymin, ymax)
+# # sfc_plot(starttime, endtime, to_plot[5], variables[to_plot[5]], 
+# #     locations, met, xi, yi, xmin, xmax, ymin, ymax)
+# sfc_plot(starttime, endtime, to_plot[6], variables[to_plot[6]], 
+#     locations, met, xi, yi, xmin, xmax, ymin, ymax)
+# sfc_plot(starttime, endtime, to_plot[7], variables[to_plot[7]], 
+#     locations, met, xi, yi, xmin, xmax, ymin, ymax)
