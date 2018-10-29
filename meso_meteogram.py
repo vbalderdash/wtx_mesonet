@@ -9,16 +9,16 @@ station pressure, soil temperature, soil moisture and leaf wetness
 for any on station primarily for data-checking purposes
 '''
 
-# To execute from the command line with python meso_meteogram.py XXXX YYMMDD 
-# where XXXX is the station symbol and with the raw data files in a 
-# raw_data directory from the working directory.
-filename  = 'raw_data/' + sys.argv[1] + sys.argv[2][:4] + '.txt'
-starttime = dt.datetime(int('20'+sys.argv[2][:2]), int(sys.argv[2][2:4]), 
-            int(sys.argv[2][4:]))
+# # To execute from the command line with python meso_meteogram.py XXXX YYMMDD 
+# # where XXXX is the station symbol and with the raw data files in a 
+# # raw_data directory from the working directory.
+# filename  = 'raw_data/' + sys.argv[1] + sys.argv[2][:4] + '.txt'
+# starttime = dt.datetime(int('20'+sys.argv[2][:2]), int(sys.argv[2][2:4]), 
+            # int(sys.argv[2][4:]))
 
-# # Or to execute in more direct manner adjust the following:
-# filename = '/home/vanna/Desktop/originals/CHIL1206.txt'
-# starttime = dt.datetime(2012,6,15,0)
+# Or to execute in more direct manner adjust the following:
+filename = 'raw_data/CHIL1206.txt'
+starttime = dt.datetime(2012,6,15,0)
 
 # To plot a longer time period, change the time delta value below
 endtime   = starttime + dt.timedelta(hours=24)
@@ -118,7 +118,7 @@ try:
 
 except: 
     KeyError
-    print 'No Agricultural Data Available'
+    print ('No Agricultural Data Available')
     fig = plt.figure(1)
     ax1 = fig.add_subplot(611)
     ln1 = ax1.plot(met[starttime:endtime].index, 

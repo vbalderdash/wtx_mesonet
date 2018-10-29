@@ -2,9 +2,17 @@ The Python scripts are for ingesting converted West Texas Mesonet data into usea
 the data either through individual station meteorgrams or through basic surface
 plotting.
 
+Note that the surface plotting functions are still in a form using basemap v1.0.7, so they will either 
+need to be customized 
+for more current packages or the basemap __init__ may be editted for Python 3 compatability.
+
 ## West Texas Mesonet
 Current West Texas Mesonet data and more information can be found at 
 www.mesonet.ttu.edu
+
+## Testing Notebook
+The function_tests notebook contains many of the functions in other scripts for
+dependency testing which can be utilized for python notebook functionality.
 
 ## Data
 The mesonet_sftp.py script can be used to get the raw data for a month from the 

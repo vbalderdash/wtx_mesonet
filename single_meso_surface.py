@@ -41,9 +41,9 @@ z_min   = np.min(met[to_plot])
 levels  = np.arange(z_min, z_max+0.1, 0.1)
 
 
-zi = interpolate.griddata((met.ix[time_selection]['Lon'], 
-                           met.ix[time_selection]['Lat']), 
-                           met.ix[time_selection][to_plot], 
+zi = interpolate.griddata((met.loc[time_selection]['Lon'], 
+                           met.loc[time_selection]['Lat']), 
+                           met.loc[time_selection][to_plot], 
                            (xi, yi), method='linear')
 shapefile = 'UScounties/UScounties'
 maps = Basemap(llcrnrlon=xmin, llcrnrlat=ymin, 
@@ -52,12 +52,12 @@ maps.readshapefile(shapefile, name='counties')
 maps.contourf(xi, yi, zi, levels, cmap = plt.cm.gist_earth_r)
 c = plt.colorbar()  
 c.set_label('2 m Temperature')  
-maps.scatter(met.ix[time_selection]['Lon'], 
-             met.ix[time_selection]['Lat'], marker='o', c='b', s=5, latlon=True)
-maps.barbs(met.ix[time_selection]['Lon'], 
-           met.ix[time_selection]['Lat'], 
-           met.ix[time_selection]['u'].values*1.94384, 
-           met.ix[time_selection]['v'].values*1.94384, latlon=True)
+maps.scatter(met.loc[time_selection]['Lon'], 
+             met.loc[time_selection]['Lat'], marker='o', c='b', s=5, latlon=True)
+maps.barbs(met.loc[time_selection]['Lon'], 
+           met.loc[time_selection]['Lat'], 
+           met.loc[time_selection]['u'].values*1.94384, 
+           met.loc[time_selection]['v'].values*1.94384, latlon=True)
 plt.title(to_plot)             
 plt.tight_layout()
 plt.show()
